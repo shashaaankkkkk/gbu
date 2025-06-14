@@ -1,53 +1,42 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import routes from '../Routes/routes';
 
 const DropdownItem = ({ title, items }) => {
-  return (
-    <div className="relative group">
-      <div className="inline-block">
-        <button className="text-sm text-gray-800 font-semibold flex items-center hover:text-purple-700 transition">
-          {title}
-          <span className="ml-1">▾</span>
-        </button>
-      </div>
+  const [isOpen, setIsOpen] = useState(false);
 
-      {/* This container will stay open as long as mouse is on button or dropdown */}
-      <div className="absolute right-0 z-50 mt-2 w-72 hidden group-hover:flex flex-col bg-white shadow-xl rounded-lg border border-gray-200">
-        {items.map((item, index) => (
-          <Link
-            key={index}
-            to={item.href}
-            className="px-5 py-2 text-sm text-gray-700 hover:bg-purple-50 transition-all"
-          >
-            {item.label}
-          </Link>
-        ))}
-      </div>
+  return (
+    <div className="relative">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="text-sm text-gray-800 font-semibold flex items-center hover:text-purple-700 transition"
+      >
+        {title}
+        <span className="ml-1">▾</span>
+      </button>
+
+      {isOpen && (
+        <div className="absolute right-0 mt-2 w-72 bg-white shadow-xl rounded-lg border border-gray-200 z-50">
+          {items.map((item, index) => (
+            <Link
+              key={index}
+              to={item.href}
+              className="block px-5 py-2 text-sm text-gray-700 hover:bg-purple-50"
+              onClick={() => setIsOpen(false)} // Close dropdown on link click
+            >
+              {item.label}
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
 
 const Navbar = () => {
   return (
-    <header className="bg-[#ffffff] border-b shadow-sm sticky top-0 z-50">
+    <header className="bg-white border-b shadow-sm sticky top-0 z-50">
       <div className="max-w-screen-xl mx-auto flex justify-between items-center px-6 py-3">
-        {/* Logo */}
-        <div className="flex items-center space-x-4">
-          <img
-            src="./assets/logo.webp"
-            className="w-14 h-14"
-            alt="GBU Logo"
-          />
-          <div>
-            <h1 className="text-[16px] font-semibold text-gray-900 leading-5">
-              GAUTAM BUDDHA UNIVERSITY
-            </h1>
-            <p className="text-[12px] text-gray-600">An Ultimate Destination for Higher Learning</p>
-          </div>
-        </div>
-
-        {/* Navigation */}
         <nav className="flex items-center space-x-6 font-medium">
           <Link to={routes.home} className="text-black hover:text-purple-700">Home</Link>
           <Link to={routes.faculty} className="text-black hover:text-purple-700">Faculty</Link>
@@ -85,9 +74,7 @@ const Navbar = () => {
             ]}
           />
 
-
-
- <Link to="/Contactus" className="text-gray-800 hover:text-purple-700 transition">Contact us</Link>
+          <Link to="/Contactus" className="text-gray-800 hover:text-purple-700 transition">Contact us</Link>
         </nav>
       </div>
     </header>

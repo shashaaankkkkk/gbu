@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
 
-
+import PNavbar from './components/PNavbar';
 // Import page components
 import ICTPage from './pages/ICTPage';
 import Faculty from './pages/Faculty';
@@ -24,6 +24,7 @@ import Patents from './pages/Patent';
 function App() {
   return (
     <Router>
+      <PNavbar/>
       <Navbar />
 
       <Routes>

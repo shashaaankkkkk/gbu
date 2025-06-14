@@ -1,4 +1,4 @@
-
+ import React from 'react';
 import { ArrowRight, Code, Cpu, Database } from "lucide-react";
 import { Button } from "../ui/button";
 
